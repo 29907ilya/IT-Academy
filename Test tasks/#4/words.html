@@ -1,1 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>words</title>
+  </head>
+  <body>
+    <button id="btn-check" onclick="onCheckText()" >Push</button>
+
+    <script>
+      function onCheckText() {
+        const inputResult = prompt("Введите несколько слов");
+        const words = inputResult.split(" ");
+
+        if (words.length >= 3) { // проверка на минимальное количество слов
+        } else {alert("Введите минимум 3 слова"); return } 
+
+        words.sort(sortedByLength);
+
+        alert(
+          "Три самых длинных слова - это: " +
+            words[0] +
+            "; " +
+            words[1] +
+            "; " +
+            words[2] +
+            "."
+        );
+      }
+
+      function sortedByLength(word1, word2) {
+        return word2.length - word1.length;
+      }
+      
+    </script>
+  </body>
+</html>
 
