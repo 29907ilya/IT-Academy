@@ -1,1 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>anketa_if</title>
+  </head>
+  <body>
+    <script>
+      let secondName = prompt("Ваша фамилия?", "Фамилия");
+      let firstName = prompt("Ваше имя?", "Имя");
+      let middleName = prompt("Ваше отчество?", "Отчество");
+      let ageYears = prompt("Ваш возраст?", "лет");
+      let ageDays = ageYears * 365;
+      let male = confirm("Ваш пол - мужской?");
+      let manRetirementAge = 62;
+      let womanRetirementAge = 57;
+      let retirementAge;
+      let showMale;
+
+      if (male == true) {
+        showMale = "мужской";
+      } else {
+        showMale = "женский";
+      }
+
+      if ((male = true && ageYears < manRetirementAge)) {
+        retirementAge = "нет";
+      } else if ((male = true && ageYears >= manRetirementAge)) {
+        retirementAge = "да";
+      } else if ((male = false && ageYears < womanRetirementAge)) {
+        retirementAge = "нет";
+      } else if ((male = false && ageYears >= womanRetirementAge)) {
+        retirementAge = "да";
+      }
+
+      alert(
+        "ФИО: " +
+          secondName +
+          " " +
+          firstName +
+          " " +
+          middleName +
+          "\nВозраст, лет: " +
+          ageYears +
+          "\nВозраст, дней: " +
+          ageDays +
+          "\nПол: " +
+          showMale +
+          "\nПенсионный возраст: " +
+          retirementAge
+      );
+    </script>
+  </body>
+</html>
 
