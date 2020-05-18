@@ -1,1 +1,94 @@
+body {
+    background-color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
 
+h2 {
+    margin: 0;
+    font-weight: 400;
+}
+
+header, footer {
+    text-align: center;
+    background-color: #add8e6;
+    color: #0000ff;
+    padding: 20px;
+}
+
+header {
+    padding: 10px;
+}
+
+.main_content {
+    overflow: hidden;
+}
+
+nav, section {
+    padding-bottom: 9999px;
+    margin-bottom: -9999px;
+}
+
+nav {
+    width: 220px;
+    float: left;
+    background-color: #f0e68c;
+}
+
+.menu_header {
+    margin-left: 15px;
+}
+
+section {
+    width: calc(100% - 220px);
+    float: right;
+    background-color: #fff;
+    background-image: url(img/ball.png);
+    background-repeat: repeat-y;
+    background-position: right;
+}
+
+.section_header {
+    text-align: center;
+    margin: 0;
+}
+
+.section_info {
+    padding: 20px;
+}
+
+.section_img {
+    float: left;
+    margin-right: 20px;
+}
+
+
+
+
+
+@media screen and (max-width: 600px) {
+
+header {
+    padding: -0.1px;
+}
+
+.main_content {
+    width: auto;
+}
+
+nav, section {
+    float: none;
+    width: 100%;
+    padding-bottom: 9999px;
+    margin-bottom: -9999px;
+}
+
+h2 {
+    margin: 0;
+    font-weight: 400;
+}
+
+nav {
+    padding-top: 0.1px;;
+}
+
+}
