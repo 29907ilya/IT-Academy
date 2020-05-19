@@ -7,50 +7,54 @@
   </head>
   <body>
     <script>
+
+      function userInfo () {
       let secondName = prompt("Ваша фамилия?", "Фамилия");
       let firstName = prompt("Ваше имя?", "Имя");
       let middleName = prompt("Ваше отчество?", "Отчество");
       let ageYears = prompt("Ваш возраст?", "лет");
+      
+      
+   
+        if ( isNaN(ageYears) ) {
+          alert('Возраст должен быть числом!'); 
+          return;
+      } 
+
       let ageDays = ageYears * 365;
       let male = confirm("Ваш пол - мужской?");
       let manRetirementAge = 62;
       let womanRetirementAge = 57;
       let retirementAge;
       let showMale;
-
-      if (male == true) {
+      
+      if (male) {
         showMale = "мужской";
       } else {
         showMale = "женский";
       }
 
-      if ((male = true && ageYears < manRetirementAge)) {
+      if ((male && ageYears < manRetirementAge)) {
         retirementAge = "нет";
-      } else if ((male = true && ageYears >= manRetirementAge)) {
+      } else if ((male && ageYears >= manRetirementAge)) {
         retirementAge = "да";
-      } else if ((male = false && ageYears < womanRetirementAge)) {
+      } else if ((!male && ageYears < womanRetirementAge)) {
         retirementAge = "нет";
-      } else if ((male = false && ageYears >= womanRetirementAge)) {
+      } else if ((!male && ageYears >= womanRetirementAge)) {
         retirementAge = "да";
       }
 
       alert(
         "ФИО: " +
-          secondName +
-          " " +
-          firstName +
-          " " +
-          middleName +
-          "\nВозраст, лет: " +
-          ageYears +
-          "\nВозраст, дней: " +
-          ageDays +
-          "\nПол: " +
-          showMale +
-          "\nПенсионный возраст: " +
+          secondName + " " + firstName + " " + middleName +
+          "\nВозраст, лет: " + ageYears + "\nВозраст, дней: " +
+          ageDays + "\nПол: " + showMale + "\nПенсионный возраст: " +
           retirementAge
       );
+      }
+
+      userInfo();
+
     </script>
   </body>
 </html>
-
