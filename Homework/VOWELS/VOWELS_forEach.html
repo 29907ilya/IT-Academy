@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let askPhrase = prompt("Введите что-нибудь на русском");
+
+      function vowels(item) {
+        let arrInputValue = item.toLowerCase().split("");
+        let letter = ["а", "е", "ё", "и", "о", "у", "ы", "э", "ю", "я"];
+
+        let result = 0;
+
+        arrInputValue.forEach(function (foo) {
+          if (letter.indexOf(foo) !== -1) {
+            result++;
+          }
+        });
+        return result;
+      }
+
+      console.log("result = " + vowels(askPhrase));
+    </script>
+  </body>
+</html>
