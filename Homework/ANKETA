@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function userInfo(message) {
+        let inputValue = prompt(message);
+
+        if (!inputValue) {
+          alert("Вы ничего не ввели! Пробуем снова!");
+          return userInfo(message);
+        } else if (inputValue.trim() === "") {
+          alert("Пробел не подходит! Пробуем снова!");
+          return userInfo(message);
+        } else if (!isNaN(inputValue)) {
+          alert("Число не подходит! Пробуем снова!");
+          return userInfo(message);
+        } else return inputValue;
+      }
+
+      userName = userInfo("Введите имя:");
+      userSurname = userInfo("Введите фамилию:");
+      userPatronymic = userInfo("Введите отчество:");
+
+      function checkAge(message) {
+        let askAge = prompt(message);
+        const inputValue = Number(askAge);
+
+        if (!inputValue) {
+          alert("Введите число! Пробуем снова!");
+          return checkAge(message);
+        } else return inputValue;
+      }
+
+      ageYears = checkAge("Введите свой возраст:");
+
+      let ageDays = ageYears * 365;
+      let futureAge = ageYears + 5;
+      let male = confirm("Ваш пол мужской?");
+      let manRetirementAge = 62;
+      let womanRetirementAge = 57;
+      let retirementAge;
+      let showMale;
+
+      showMale = male ? "мужской" : "женский";
+
+      retirementAge =
+        male && ageYears < manRetirementAge
+          ? "нет"
+          : male && ageYears >= manRetirementAge
+          ? "да"
+          : !male && ageYears < womanRetirementAge
+          ? "нет"
+          : !male && ageYears >= womanRetirementAge
+          ? "да"
+          : " ";
+
+      alert(
+        "ФИО: " +
+          userSurname +
+          " " +
+          userName +
+          " " +
+          userPatronymic +
+          "\nВозраст, лет: " +
+          ageYears +
+          "\nВозраст, дней: " +
+          ageDays +
+          "\nЧерез 5 лет вам будет: " +
+          futureAge +
+          "\nПол: " +
+          showMale +
+          "\nПенсионный возраст: " +
+          retirementAge
+      );
+    </script>
+  </body>
+</html>
