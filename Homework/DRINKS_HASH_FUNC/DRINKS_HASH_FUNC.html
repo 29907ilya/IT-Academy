@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DRINKS_HASH_FUNC</title>
+  </head>
+  <body>
+    <input
+      type="button"
+      id="addValue"
+      value="Add Value"
+      onclick="inputInfo()"
+    />
+
+    <input type="button" id="getValue" value="Get Value" onclick="getInfo()" />
+
+    <input
+      type="button"
+      id="deleteValue"
+      value="Delete Value"
+      onclick="deleteInfo()"
+    />
+
+    <input type="button" id="getKeys" value="Get Keys" onclick="showInfo()" />
+
+    <script>
+      "use strict";
+
+      function HashStorageFunc(title) {
+        this.title = title;
+        this.storage = {};
+
+        this.addValue = function (key, value) {
+          this.storage[key] = value;
+        };
+
+        this.getValue = function (key) {
+          return this.storage[key];
+        }
+
+        this.deleteValue = function (key) {
+          if (key in this.storage) {
+            return delete this.storage[key];
+          }
+          return false;
+        };
+
+        this.getKeys = function () {
+          return Object.keys(this.storage);
+        };
+      }
+
+      var drinkStorage = new HashStorageFunc("Beer");
+
+      // 1) «ввод информации о напитке»
+      function inputInfo() {
+        var beerName = prompt("Введите название пива");
+        var alcohol = prompt("Введите крепость");
+        var beerType = prompt("Введите тип пива");
+
+        drinkStorage.addValue(beerName, { alcohol, beerType });
+      }
+
+      // 2) «получение информации о напитке»
+      function getInfo() {
+        var beerName = prompt("Введите название пива");
+        var info = drinkStorage.getValue(beerName);
+        if (info) {
+          let textResult = "";
+          for (var i in info) {
+            textResult += i + " = " + info[i] +"; "
+          }
+          console.log('Пиво ' + beerName + ": " + textResult);
+        } else
+          console.log(beerName + ": пива с таким названием нет в хранилище");
+      }
+
+      // 3) «удаление информации о напитке»
+      function deleteInfo() {
+        var beerName = prompt("Введите название пива");
+
+        if (!drinkStorage.deleteValue(beerName)) {
+          console.log(
+            "Пиво с названием " + beerName + " не найдено в хранилище"
+          );
+        } else console.log("Пиво " + beerName + " было удалено из хранилища");
+      }
+
+      // 4) «перечень всех напитков»
+      function showInfo() {
+        console.log(drinkStorage.getKeys());
+      }
+    </script>
+  </body>
+</html>
