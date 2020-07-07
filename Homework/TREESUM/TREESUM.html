@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let arr = [5, 7, [4, [2], 8, [1, 3], 2], [9, []], 1, 8];
+
+      function treeSum(item) {
+        let result = 0;
+        if (!Array.isArray(item)) {
+          return result += item          
+        }
+        for (let i = 0; i < item.length; i++) {
+          result += treeSum(item[i])
+        }
+          return result
+      }
+
+      
+      console.log('result = ' + treeSum(arr))
+
+    </script>
+  </body>
+</html>
