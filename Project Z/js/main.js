@@ -19,7 +19,6 @@ var zombiesEscaped = [];
 var shooter = { x: 420, y: 470 };
 var bullet = [];
 var score = 0;
-var animx = 0;
 
 canvas.addEventListener("mousemove", function (event) {
   shooter.x = event.offsetX;
@@ -46,6 +45,8 @@ function update() {
       spdX: Math.random() * 2 + 1,
       spdY: Math.random() * 0.8 + 0.2,
       del: 0,
+      animx: 0,
+      animy: 0,
     });
   }
 
@@ -69,16 +70,15 @@ function update() {
 
   //физика зомби
   for (i in zombies) {
-
-    
-    
-
     zombies[i].y = zombies[i].y + zombies[i].spdY;
     zombies[i].x = zombies[i].x + zombies[i].spdX;
 
-    zombies[i].animx=zombies[i].animx+0.5;
-    if(zombies[i].animx>4) {zombies[i].animy++; zombies[i].animx=0}
-  
+    // АНИМАЦИЯ ЗОМБИ НЕ РАБОТАЕТ
+    zombies[i].animx = zombies[i].animx + 0.5;
+    if (zombies[i].animx > 4) {
+      zombies[i].animy++;
+      zombies[i].animx = 0;
+    }
 
     // границы движения зомби
     if (zombies[i].x >= 560 || zombies[i].x <= 330) {
@@ -91,60 +91,52 @@ function update() {
       }
     }
 
-
-
-    
-
     // столкновение пули и зомби
-  for (j in bullet) {
-    if (
-      Math.abs(zombies[i].x + 20 - 
-        bullet[j].x - 10) < 80 &&
-      Math.abs(zombies[i].y - bullet[j].y) < 50
-    ) {
-      
-      // помечаем зомби на удаление
-      zombies[i].del = 1;
-      bullet.splice(j, 1);
-      score++;
-      break;
+    for (j in bullet) {
+      if (
+        Math.abs(zombies[i].x + 20 - bullet[j].x - 10) < 80 &&
+        Math.abs(zombies[i].y - bullet[j].y) < 50
+      ) {
+        // помечаем зомби на удаление
+        zombies[i].del = 1;
+        bullet.splice(j, 1);
+        score++;
+        break;
+      }
+    }
+    // удаляем зомби
+    if (zombies[i].del == 1) {
+      zombies.splice(i, 1);
     }
   }
-  // удаляем зомби
-  if (zombies[i].del == 1) {
-    zombies.splice(i, 1);
-  }
-
-  
-
-  }
-  
-  
 }
-
-
 
 function render() {
   context.drawImage(backgroungImg, 0, 0, 1000, 565);
+  
   for (i in zombies) {
-    context.drawImage(zombieImg, 231*Math.floor(zombies[i].animx), 231*Math.floor(zombies[i].animy), 231, 231, zombies[i].x, zombies[i].y, 80,80);
+    context.drawImage(
+      zombieImg,
+      231*Math.floor(zombies[i].animx),
+      231*Math.floor(zombies[i].animy),
+      231,
+      231,
+      zombies[i].x,
+      zombies[i].y,
+      80,
+      80
+    );
   }
+
   context.drawImage(shooterImg, shooter.x, shooter.y, 80, 80);
+  
   for (i in bullet) {
     context.drawImage(bulletImg, bullet[i].x, bullet[i].y, 8, 40);
   }
   context.fillStyle = "#000";
   context.font = "20px Verdana";
-  context.fillText("Счет: " + score, 40, 550)
+  context.fillText("Счет: " + score, 40, 550);
 }
-
-
-
-
-
-
-
-
 
 var requestAnimationFrame = (function () {
   return (
