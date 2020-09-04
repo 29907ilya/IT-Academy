@@ -1,52 +1,130 @@
-html, body {
-    margin: 0;
-    padding: 0;
-    background-color: #151515;
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #151515;
+  overflow: hidden;
+  cursor: crosshair;
 }
 
-canvas {
-    display: block;
-    margin: auto;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+
+canvas {  
+  display: block;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
-.wrapper {
-    width: 512px;
-    margin: 0 auto;
-    margin-top: 2em;
+.start_background img {
+  display: block;
+  background-size: auto;
+  width: 100%;
+  height: auto;
 }
 
+.start_screen {  
+  position: absolute;
+  top:10%;
+  left: 5%;
+  width: 500px;
+  height: calc(10%-100px);
+  cursor: crosshair;
+}
+.start_screen h1 {  
+  text-shadow: 0 -1px 4px #FFF, 0 -2px 10px #ff0, 0 -10px 20px #ff8000, 0 -18px 40px #F00;
+}
+
+.buttons input:hover {
+  transform: scale(1.2);
+}
+
+.buttons input {
+  display: block;
+  width: 220px;
+  font-size: 20px;
+  font-family: 'Griffy', cursive;
+  color: red; 
+  background-color: transparent;
+  border-radius: 11px;
+  cursor: crosshair;
+  transition: transform 0.1s;
+  margin-bottom: 10px;
+
+  outline: none;
+}
+
+h1,h2,h3 {
+  font-family: 'Griffy', cursive;
+  color: #FF1E00;
+  font-size: 48px;  
+}
+
+h2,h3 {
+  font-size: 30px;
+  color: black; 
+}
+
+h3:hover {
+  transform: scale(1.2);  
+}
 
 #game-over {
-    margin: auto;
-    width: 512px;
-    height: 480px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 1;
-    display: none;
+  margin: auto;
+  width: 400px;
+  height: 400px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  display: none;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-
-
-#game-over {
-    height: 200px;
-    text-align: center;
-    color: white;
+#game-over h1,h2,h3 {
+  text-align: center;
 }
-
 #game-over h1 {
-    font-size: 3em;
-    font-family: sans-serif;
+  text-shadow: 0 -1px 4px #FFF, 0 -2px 10px #ff0, 0 -10px 20px #ff8000, 0 -18px 40px #F00;
 }
 
-#game-over button {
-    font-size: 1.5em;
+.tableDiv{
+  width: 60%;
+  height: 60%;
+  z-index: 2;  
+  opacity: 0.7;
+  padding: 3%;
+  position: absolute;
+  display: none;
+  transform: translateZ(0);
+  transition-duration: 0.5s;
+  transition-timing-function: linear;
+}
+
+.tableWrapper{
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  border: solid 3px #000;
+  background-color: #812f2f;
+  text-align: center;
+  color: #ffffff;
+  font-size: 3vh;
+}
+
+td{
+  text-align: center;
+  border: solid 1px #682626;
+  padding: 1vw;
+  font-size: 3vh;
+  color: #812f2f;
+  font-weight: bold;
+  background-color: #ffffff;
+  margin: 1vh;
 }
