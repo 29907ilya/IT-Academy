@@ -8,46 +8,69 @@ var bulletImg = new Image();
 bulletImg.src = "img/bullet.png";
 
 var explImg = new Image();
-explImg = "img/explosion.png";
+explImg.src = "img/explosion.png";
+
+var bloodImg = new Image();
+bloodImg.src = "img/blood.png";
 
 var zombieImg = new Image();
 zombieImg.src = "img/zombie-move.png";
-
-var bloodImg = new Image();
-bloodImg.src = "img/blood.png"
 
 var backgroungImg = new Image();
 backgroungImg.src = "img/background.png";
 
 var zombies = [];
 var timer = 0;
-var shooter = { x: 420, y: 410, animx: 0, animy: 0 };
+var shooter = { x: 420, y: 410, speed: 200, animx: 0, animy: 0 };
+var modifier = 0.02;
 var bullet = [];
-var score = 0;
+var newscore = 0;
+var nicktext = "";
+var arrScore = [];
 var expl = [];
-var blood = [];
+var explSpeed = 0;
+var randPass = 0;
+var scoreData;
+var blood = {x: shooter.x, y: shooter.y, animx: 0, animy: 0};
 
-window.addEventListener("keydown", keyDown, false);
+var keysDown = {};
+// ------ движение стрелка
+window.addEventListener(
+  "keydown",
+  function (key) {
+    keysDown[key.keyCode] = true;
+  },
+  false
+);
+window.addEventListener(
+  "keyup",
+  function (key) {
+    delete keysDown[key.keyCode];
+  },
+  false
+);
 
-function keyDown(e) {
-  if (e.keyCode === 65) {
-    shooter.x -= 3;
+function shooterMove() {
+  if (87 in keysDown) {
+    shooter.y -= shooter.speed * modifier;
   }
-  if (e.keyCode === 68) {
-    shooter.x += 3;
+  if (83 in keysDown) {
+    shooter.y += shooter.speed * modifier;
   }
-  if (e.keyCode === 87) {
-    shooter.y -= 3;
+  if (65 in keysDown) {
+    shooter.x -= shooter.speed * modifier;
   }
-  if (e.keyCode === 83) {
-    shooter.y += 3;
+  if (68 in keysDown) {
+    shooter.x += shooter.speed * modifier;
   }
 }
 
+// ---------- стрельба и точка вылета пули
 canvas.addEventListener("click", fire, false);
 function fire(f) {
   if ((f.fire = true)) {
-    if (timer % 2 == 0) {
+    if (timer % 2 == 1) {
+      clickSound(shotSound);
       bullet.push({
         x: shooter.x + 55,
         y: shooter.y - 35,
@@ -58,52 +81,35 @@ function fire(f) {
   }
 }
 
-backgroungImg.onload = function () {
-  game();
-};
-
-
-
 function game() {
-  update();
+  upgrade();
   render();
   requestAnimationFrame(game);
 }
 
+function upgrade() {
+  shooterMove(shooter);
 
-
-
-function update() {
   //------------- З О М Б И ------------------
   //принцип появления зомби
+
   timer++;
-  if (timer % 50 == 0) {
+  if (timer % 100 == 0) {
+    clickSound(zombieSound);
     zombies.push({
       x: 400,
-      y: -50,
-      spdX: Math.random() * 2 + 1,
-      spdY: Math.random() * 1 + 0.2,
+      y: -220,
+      spdX: Math.random() * 1 + 1,
+      spdY: Math.random() * 1.7 + 0.2,
       del: 0,
       animx: 0,
       animy: 0,
     });
   }
+  
+  // ----------  АНИМАЦИЯ ЗОМБИ
 
-  // for (i in blood) {
-  //   blood[i].animx = blood[i].animx + 0.2;
-
-  //   if (blood[i].animx >= 4) {
-  //     blood[i].animy++;
-  //     blood[i].animx = 0;
-  //   }
-  //   if (blood[i].animy >= 4) {
-      
-  //   }
-  // }
-
-  // ----------  АНИМАЦИЯ ЗОМБИ 
-
-  for (i in zombies) {
+  for (i = 0; i < zombies.length; i++) {
     zombies[i].animx = zombies[i].animx + 0.3;
 
     if (zombies[i].animx >= 4) {
@@ -129,74 +135,34 @@ function update() {
       gameOver();
     }
 
-        
     // столкновение пули и зомби
-    for (j in bullet) {
+    for (j = 0; j < bullet.length; j++) {
       if (
         Math.abs(zombies[i].x + 20 - bullet[j].x - 10) < 20 &&
         Math.abs(zombies[i].y - bullet[j].y) < 20
       ) {
+        clickSound(killSound);
 
-
-
-
-
-
-
-
-
-
-      //----- взрыв при столкновении пули и зомби не срабатывает      
-
-      // expl.push({
-      //   x: zombies[i].x - 20,
-      //   y: zombies[i].y - 20,
-      //   animx: 0,
-      //   animy: 0
-      // });
-
-
-      //--------------------------------------------------------
-
-
-
-
-
-
-
-
-
+        //----- взрыв при столкновении пули и зомби
+        expl.push({
+          x: zombies[i].x,
+          y: zombies[i].y,
+          animx: explSpeed,
+          animy: explSpeed,
+        });
+        //--------------------------------------------------------
 
         // помечаем зомби на удаление
         zombies[i].del = 1;
-        bullet.splice(j, 1);
-        score++;        
+        newscore++;
         break;
       }
-
     }
 
     // удаляем зомби
     if (zombies[i].del == 1) {
+      bullet.splice(j, 1);
       zombies.splice(i, 1);
-    } 
-
-    
-    // столкновение стрелка и зомби
-    for (i in zombies) {
-      if (shooter.x < zombies[i].x + 20 &&
-          shooter.x + 20 > zombies[i].x &&
-          shooter.y < zombies[i].y + 20 &&
-          shooter.y + 20 > zombies[i].y )
-      {
-        blood.push({
-          x: shooter.x + 40,
-          y: shooter.y - 20,
-          animx: 0,
-          animy: 0
-        });
-        gameOver();
-      }
     }
   }
 
@@ -207,15 +173,13 @@ function update() {
     shooter.x = 560;
   } else if (shooter.x < 290) {
     shooter.x = 290;
-  }
-  else if (shooter.y < 350) {
+  } else if (shooter.y < 350) {
     shooter.y = 350;
   } else if (shooter.y > 450) {
     shooter.y = 450;
   }
 
-
-// ----------- анимация движения стрелка
+  // ----------- анимация движения стрелка
   for (i in shooter) {
     shooter.animx = shooter.animx + 0.05;
 
@@ -232,8 +196,9 @@ function update() {
   //---------------- П У Л И -----------------
 
   //полет пули
-  for (i in bullet) {
+  for (i = 0; i < bullet.length; i++) {
     bullet[i].y = bullet[i].y + bullet[i].dy;
+
     if (bullet[i].y < -10) {
       bullet.splice(i, 1);
     }
@@ -241,23 +206,21 @@ function update() {
 
   // ---------------- В З Р Ы В -------------
   // анимация взрыва
-  for (i in expl) {
+  for (i = 0; i < expl.length; i++) {
     expl[i].animx = expl[i].animx + 0.5;
-  
-    if (expl[i].animx > 8) {
+
+    if (expl[i].animx > 4) {
       expl[i].animy++;
       expl[i].animx = 0;
     }
-    if (expl[i].animy > 6) {
+    if (expl[i].animy > 4) {
       expl.splice(i, 1);
     }
   }
-
 }
 
-
-
 function render() {
+  
   context.drawImage(backgroungImg, 0, 0, 1000, 565);
 
   for (i in shooter) {
@@ -274,11 +237,11 @@ function render() {
     );
   }
 
-  for (i in bullet) {
+  for (i = 0; i < bullet.length; i++) {
     context.drawImage(bulletImg, bullet[i].x, bullet[i].y, 8, 40);
   }
 
-  for (i in zombies) {
+  for (i = 0; i < zombies.length; i++) {
     context.drawImage(
       zombieImg,
       231 * Math.floor(zombies[i].animx),
@@ -292,13 +255,13 @@ function render() {
     );
   }
 
-  for (i in expl) {
+  for (i = 0; i < expl.length; i++) {
     context.drawImage(
       explImg,
-      96*Math.floor(expl[i].animx),
-      94*Math.floor(expl[i].animy),
-      96,
-      94,
+      128 * Math.floor(expl[i].animx),
+      128 * Math.floor(expl[i].animy),
+      128,
+      128,
       expl[i].x,
       expl[i].y,
       80,
@@ -306,52 +269,7 @@ function render() {
     );
   }
 
-  for (i in blood) {
-    context.drawImage(
-      bloodImg,
-      128 * Math.floor(blood.animx),
-      128 * Math.floor(blood.animy),
-      128,
-      128,
-      blood.x,
-      blood.y,
-      80,
-      80
-    );
-  }
-
   context.fillStyle = "black";
-  context.font = "900 20px sans-serif";
-  context.fillText("Score: " + score, 40, 490);
+  context.font = "900 25px 'Griffy', cursive";
+  context.fillText("Score: " + newscore, 40, 490);
 }
-
-function gameOver() {
-  document.getElementById("game-over").style.display = "block";
-  
-}
-
-
-function reset() {
-  document.getElementById('game-over').style.display = 'none';
-  score = 0;
-  zombies = [];
-  bullets = [];
-  shooter = { x: 420, y: 410, animx: 0, animy: 0 }
-};
-
-document.getElementById('play-again').addEventListener('click', function() {
-  reset();
-});
-
-var requestAnimationFrame = (function () {
-  return (
-    window.requestAnimationFrame ||
-    window.webkitRequestAnimationFrame ||
-    window.mozRequestAnimationFrame ||
-    window.oRequestAnimationFrame ||
-    window.msRequestAnimationFrame ||
-    function (callback) {
-      window.setTimeout(callback, 1000 / 60);
-    }
-  );
-})();
