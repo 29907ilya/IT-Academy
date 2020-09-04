@@ -4,19 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Griffy&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="img/icon.png" type="image/png">
+    <title>ZOMBIE APOCALYPSE</title>
 </head>
 <body>
+  <script src="js/music.js"></script>  
+
+    <div id="start">     
+      <div class="container">
+        <div class="start_background">
+          <img src="img/start-bg.jpeg" alt="">
+        </div>
+        <div class="start_screen">
+          <h1 >ZOMBIE APOCALYPSE</h1>          
+          <div class="buttons">
+            <form action="">
+              <input id="inputName" type="longtext" placeholder="What's your name, soldier?">
+              <input id="getName" type="button" value="Remember me!" placeholder="">  <br>                          
+              <input id="start_button" onclick="startGame()" type="button" value="Start Game">
+              <input class="start score" type="button" value="Highscores" onclick="tableScore()">                         
+            </form>
+          </div>
+      </div>
+
+      <div class="tableDiv" ">
+        <div class="tableWrapper">
+        <div onclick="tableScore()" class="start score"><button>Close</button></div>
+        </div>
+      </div>     
+
+      </div>
+      </div>
+
     <div id="game-over">
       <h1>GAME OVER</h1>
-      <button id="play-again">Play Again</button>
+      <h2 class="overInfo"></h2>      
+      <h3 id="play-again" >Play Again</h3>
     </div>
-
-    <div class="wrapper">
-      
-      <div id="score"></div>
-    </div>
-    <canvas id="game" width="980" height="500" </canvas>
+    <canvas id="game" width="980" height="500"></canvas>
     <script src="js/main.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/highscores.js"></script>
+    <script src="js/ajax.js"></script>
+
+    <!-- <script src="js/ajax.js"></script> -->
+    <script
+  src="https://code.jquery.com/jquery-3.5.1.js"
+  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+  crossorigin="anonymous"></script>
 </body>
 </html>
+
