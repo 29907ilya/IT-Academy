@@ -164,18 +164,3 @@ function update(pass) {
     .catch(error => { console.error(error); });
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
