@@ -2,7 +2,12 @@ function startGame() {
   $("#start").hide();
   game();
   clickSound(mainSound);
+  randPass = randomDiap(1, 5000);
 }
+
+$(window).on('beforeunload', function(){ 
+	return 'Вы действительно хотите уйти?'; 
+});
 
 function gameOver() {
   document.getElementById("game-over").style.display = "block"
@@ -32,7 +37,9 @@ var requestAnimationFrame = (function () {
   );
 })();
 
-
+function randomDiap(n, m) {
+  return Math.floor(Math.random() * (m - n + 1)) + n;
+}
 
 
 
