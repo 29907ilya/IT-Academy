@@ -28,6 +28,7 @@ scoreTable.style.left = bodyWidth / 2 - scoreTableWidth / 2 + "px";
 
 // -------- позиционируем таблицу
 function tableScore() {
+  console.log("tableScore");
   scoreTable.style.display = "block";
 
   if (!tableNone) {
@@ -46,3 +47,4 @@ function tableScore() {
     tableNone = false;
   }
 }
+
