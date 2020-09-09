@@ -10,9 +10,6 @@ bulletImg.src = "img/bullet.png";
 var explImg = new Image();
 explImg.src = "img/explosion.png";
 
-var bloodImg = new Image();
-bloodImg.src = "img/blood.png";
-
 var zombieImg = new Image();
 zombieImg.src = "img/zombie-move.png";
 
@@ -31,7 +28,6 @@ var expl = [];
 var explSpeed = 0;
 var randPass = 0;
 var scoreData;
-var blood = {x: shooter.x, y: shooter.y, animx: 0, animy: 0};
 
 var keysDown = {};
 // ------ движение стрелка
@@ -81,7 +77,16 @@ function fire(f) {
   }
 }
 
+
+// случайное число
+function randomDiap(n, m) {
+  return Math.floor(Math.random() * (m - n + 1)) + n;
+}
+randPass = randomDiap(1, 5000);
+
 function game() {
+
+
   upgrade();
   render();
   requestAnimationFrame(game);
@@ -106,7 +111,7 @@ function upgrade() {
       animy: 0,
     });
   }
-  
+
   // ----------  АНИМАЦИЯ ЗОМБИ
 
   for (i = 0; i < zombies.length; i++) {
@@ -132,6 +137,9 @@ function upgrade() {
       zombies[i].spdX = -zombies[i].spdX;
     }
     if (zombies[i].y >= 550) {
+
+      zombies = [];
+      bullets = [];
       gameOver();
     }
 
@@ -220,7 +228,7 @@ function upgrade() {
 }
 
 function render() {
-  
+
   context.drawImage(backgroungImg, 0, 0, 1000, 565);
 
   for (i in shooter) {
