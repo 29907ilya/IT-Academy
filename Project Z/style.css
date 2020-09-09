@@ -10,8 +10,8 @@ body {
 
 canvas {  
   width: 100vw;
-    height: 100vh;
-    display: block;
+  height: auto;
+  display: block;
 }
 
 .start_background img {
