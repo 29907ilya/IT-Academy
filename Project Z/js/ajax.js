@@ -1,11 +1,11 @@
 "use strict";
 
-var ajaxHandlerScript = "https://fe.it-academy.by/AjaxStringStorage2.php";
+let ajaxHandlerScript = "https://fe.it-academy.by/AjaxStringStorage2.php";
 
 function read() {
 
   // отдельно создаём набор POST-параметров запроса
-  var sp = new URLSearchParams();
+  let sp = new URLSearchParams();
   sp.append('f', 'READ');
   sp.append('n', 'YAROSH_ZOMBIE_APOCALYPSE');
 
@@ -20,7 +20,7 @@ function read() {
 function addArrScore(arr) {
 
   // находим контейнер для таблицы
-  var arrWrapper = document.querySelector(".tableWrapper");
+  let arrWrapper = document.querySelector(".tableWrapper");
 
   if (arrWrapper.children.length > 1) {
     while (arrWrapper.children.length !== 1) {
@@ -31,27 +31,27 @@ function addArrScore(arr) {
   // если строка не пустая создаем таблицу и заполняем ее
   if (arr.result !== "") {
 
-    var newArr = JSON.parse(arr.result);
+    let newArr = JSON.parse(arr.result);
 
-    var table = document.createElement("table");
+    let table = document.createElement("table");
     table.style.margin = "auto";
     table.style.borderSpacing = "1vh 1vw";
 
-    var tableBody = document.createElement("tbody");
+    let tableBody = document.createElement("tbody");
     table.appendChild(tableBody);
 
-    for (var i = 0; i < newArr.length; i++) {
+    for (let i = 0; i < newArr.length; i++) {
 
-      var tr = document.createElement("tr");
+      let tr = document.createElement("tr");
       tableBody.appendChild(tr);
 
-      var tdNumber = document.createElement("td");
+      let tdNumber = document.createElement("td");
       tdNumber.innerText = i + 1;
       tr.appendChild(tdNumber);
-      var tdName = document.createElement("td");
+      let tdName = document.createElement("td");
       tdName.innerText = newArr[i].name;
       tr.appendChild(tdName);
-      var tdScore = document.createElement("td");
+      let tdScore = document.createElement("td");
       tdScore.innerText = newArr[i].score;
       tr.appendChild(tdScore);
     }
@@ -61,17 +61,16 @@ function addArrScore(arr) {
   // если пустая, выдаем текст
   else {
 
-    arrWrapper.append(document.createTextNode("В таблице рекордов нет результатов"));
+    arrWrapper.append(document.createTextNode("В таблице рекордоа, нет результатов"));
   }
 }
 
 //получаем данные и подписываемся на изменения
 function lockGet(pass) {
 
-   scoreData = {name: nicktext, score: newscore};
-  
+  scoreData = { name: nicktext, score: newscore };
 
-  var sp = new URLSearchParams();
+  let sp = new URLSearchParams();
   sp.append('f', 'LOCKGET');
   sp.append('n', 'YAROSH_ZOMBIE_APOCALYPSE');
   sp.append('p', pass);
@@ -84,19 +83,19 @@ function lockGet(pass) {
 
 function newArr(data) {
 
-  var newArr = data.result;
-  arrScore = newArr;
+  let newArr = data.result;
+  arrScore = newArr || "[]";
   update(randPass)
 
 }
 
 function update(pass) {
 
-  var newArray = JSON.parse(arrScore);
+  let newArray = JSON.parse(arrScore);
 
- 
-//Если счет больше чем в рекордах, меняем рекорды
-  for (var i = 0; i < newArray.length; i++) {
+
+  //Если счет больше чем в рекордах, меняем рекорды
+  for (let i = 0; i < newArray.length; i++) {
 
     if (parseInt(scoreData.score) > parseInt(newArray[i].score)) {
 
@@ -131,28 +130,26 @@ function update(pass) {
     }
   }
 
-  
-
   scoreData = null;
 
   // для обнуления результатов
- /*
-
-
-
-   for(var i=0; i < newArray.length; i++){
-   
-    newArray[i].name = scoreData.name;
-    newArray[i].score = scoreData.score;
-  
-   }
-  scoreData = null;
+  /*
  
-  */
+ 
+ 
+    for(let i=0; i < newArray.length; i++){
+    
+     newArray[i].name = scoreData.name;
+     newArray[i].score = scoreData.score;
+   
+    }
+   scoreData = null;
+  
+   */
 
-  var arrJson = JSON.stringify(newArray);
+  let arrJson = JSON.stringify(newArray);
 
-  var sp = new URLSearchParams();
+  let sp = new URLSearchParams();
   sp.append('f', 'UPDATE');
   sp.append('n', 'YAROSH_ZOMBIE_APOCALYPSE');
   sp.append('p', pass);
@@ -163,4 +160,19 @@ function update(pass) {
     .then(data => { console.log(data); })
     .catch(error => { console.error(error); });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
