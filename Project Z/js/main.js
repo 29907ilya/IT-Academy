@@ -29,12 +29,6 @@ var explSpeed = 0;
 var randPass = 0;
 var scoreData;
 
-bodyHeight = document.body.offsetHeight;
-bodyWidth = document.body.offsetWidth;
-
-shooterSize = Math.round(((bodyHeight + bodyWidth) / 2) / 12);
-
-
 var keysDown = {};
 // ------ движение стрелка
 window.addEventListener(
@@ -51,20 +45,6 @@ window.addEventListener(
   },
   false
 );
-
-gameWrapper.addEventListener("touchmove", shooterTouch, false);
-
-shooterTouch = function (EO) {
-  EO = EO || window.event;
-  EO.preventDefault();
-
-  // получам массив касаний
-  var touchInfo = EO.targetTouches[0];
-
-  shooter.x = touchInfo.pageX - shooterSize / 2;
-
-  shooter.y = touchInfo.pageY - shooterSize;
-};
 
 function shooterMove() {
   if (87 in keysDown) {
