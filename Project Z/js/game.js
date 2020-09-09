@@ -1,28 +1,31 @@
 function startGame() {
   $("#start").hide();
+  $("#game").show();
   game();
   clickSound(mainSound);
-  randPass = randomDiap(1, 5000);
 }
 
-$(window).on('beforeunload', function(){ 
-	return 'Вы действительно хотите уйти?'; 
-});
-
 function gameOver() {
-  document.getElementById("game-over").style.display = "block"
+  console.log("gameOver");
+  $("#game-over").show();
 }
 
 function mainMenu() {
   $("#game").hide();
-  location.reload()
+  $("#start").show();
+  lockGet(randPass);
 }
 
-document.getElementById("play-again").addEventListener("click", function () {
+document.getElementById("play-again").addEventListener("click", toMainMenu)
+function toMainMenu() {
+  console.log("game-over none");
+  $("#game-over").hide();
+  zombies = [];
+  timer = 0;
   mainMenu();
 
-  // reset();
-});
+  reset();
+};
 
 var requestAnimationFrame = (function () {
   return (
@@ -37,27 +40,11 @@ var requestAnimationFrame = (function () {
   );
 })();
 
-function randomDiap(n, m) {
-  return Math.floor(Math.random() * (m - n + 1)) + n;
+function reset() {
+  document.getElementById("game-over").style.display = "none";
+  newscore = 0;
+  zombies = [];
+  bullets = [];
+  shooter = { x: 420, y: 410, speed: 200, animx: 0, animy: 0 };
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-// function reset() {
-//   $("#game").show();
-//   document.getElementById("game-over").style.display = "none";
-//   newscore = 0;
-//   zombies = [];
-//   bullets = [];
-//   shooter = { x: 420, y: 410, speed: 200, animx: 0, animy: 0 };
-// }
