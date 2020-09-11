@@ -125,7 +125,7 @@ function upgrade() {
   }
 
   //движение зомби
-  for (i = 0; i < zombies.length; i++) {
+  for (i in zombies) {
     zombies[i].y = zombies[i].y + zombies[i].spdY;
     zombies[i].x = zombies[i].x + zombies[i].spdX;
 
