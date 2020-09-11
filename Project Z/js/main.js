@@ -125,7 +125,7 @@ function upgrade() {
   }
 
   //движение зомби
-  for (i in zombies) {
+  for (i = 0; i < zombies.length; i++) {
     zombies[i].y = zombies[i].y + zombies[i].spdY;
     zombies[i].x = zombies[i].x + zombies[i].spdX;
 
@@ -161,13 +161,12 @@ function upgrade() {
         newscore++;
         break;
       }
-    }
-
-    // удаляем зомби
-    if (zombies[i].del == 1) {
-      bullet.splice(j, 1);
-      zombies.splice(i, 1);
-    }
+      // удаляем зомби
+      if (zombies[i].del == 1) {
+        bullet.splice(j, 1);
+        zombies.splice(i, 1);
+      }
+    }    
   }
 
   //---------------- С Т Р Е Л О К -----------
