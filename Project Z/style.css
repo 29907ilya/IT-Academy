@@ -7,6 +7,11 @@ body {
   cursor: crosshair;
 }
 
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 canvas {  
   width: 100vw;
@@ -18,15 +23,16 @@ canvas {
   display: block;
   background-size: auto;
   width: 100vw;
-    height: auto;
+  height: auto;
 }
 
 .start_screen {  
   position: absolute;
-  top:10%;
+  top:5%;
   left: 5%;
-  width: 500px;
-  height: calc(10%-100px);
+  width: 100vw;
+  height: auto;
+  display: block;
   cursor: crosshair;
 }
 .start_screen h1 {  
@@ -39,8 +45,8 @@ canvas {
 
 .buttons input {
   display: block;
-  width: 220px;
-  font-size: 20px;
+  width: 18vw;
+  font-size: 3vh;
   font-family: 'Griffy', cursive;
   color: red; 
   background-color: transparent;
@@ -55,11 +61,11 @@ canvas {
 h1,h2,h3 {
   font-family: 'Griffy', cursive;
   color: #FF1E00;
-  font-size: 48px;  
+  font-size: 8vh;  
 }
 
 h2,h3 {
-  font-size: 30px;
+  font-size: 6vh;
   color: black; 
 }
 
