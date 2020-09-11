@@ -28,8 +28,8 @@ var expl = [];
 var explSpeed = 0;
 var randPass = 0;
 var scoreData;
-
 var keysDown = {};
+
 // ------ движение стрелка
 window.addEventListener(
   "keydown",
@@ -45,6 +45,7 @@ window.addEventListener(
   },
   false
 );
+
 
 function shooterMove() {
   if (87 in keysDown) {
@@ -86,8 +87,11 @@ randPass = randomDiap(1, 5000);
 function game() {
   upgrade();
   render();
-  requestAnimationFrame(game);
+  myReq = requestAnimationFrame(game);
 }
+
+myReq = requestAnimationFrame(game);
+cancelAnimationFrame(myReq);
 
 function upgrade() {
   shooterMove(shooter);
@@ -97,7 +101,6 @@ function upgrade() {
 
   timer++;
   if (timer % 100 == 0) {
-    clickSound(zombieSound);
     zombies.push({
       x: 400,
       y: -220,
@@ -136,7 +139,6 @@ function upgrade() {
       zombies = [];
       bullets = [];
       gameOver();
-      
     }
 
     // столкновение пули и зомби
@@ -154,12 +156,14 @@ function upgrade() {
           animx: explSpeed,
           animy: explSpeed,
         });
-        
+        //--------------------------------------------------------
+
+        // помечаем зомби на удаление
         bullet.splice(j, 1);
         zombies.splice(i, 1);
         newscore++;
         break;
-      } 
+      }
     }
   }
 
