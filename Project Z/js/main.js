@@ -162,12 +162,12 @@ function upgrade() {
         break;
       }
       // удаляем зомби
-      
-    }  
-    if (zombies[i].del == 1) {
+      if (zombies[i].del == 1) {
         bullet.splice(j, 1);
         zombies.splice(i, 1);
       }
+    }  
+    
   }
 
   //---------------- С Т Р Е Л О К -----------
