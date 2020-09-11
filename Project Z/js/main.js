@@ -103,7 +103,6 @@ function upgrade() {
       y: -220,
       spdX: Math.random() * 1 + 1,
       spdY: Math.random() * 1.7 + 0.2,
-      del: 0,
       animx: 0,
       animy: 0,
     });
@@ -125,7 +124,7 @@ function upgrade() {
   }
 
   //движение зомби
-  for (i in zombies) {
+  for (i = 0; i < zombies.length; i++) {
     zombies[i].y = zombies[i].y + zombies[i].spdY;
     zombies[i].x = zombies[i].x + zombies[i].spdX;
 
@@ -137,6 +136,7 @@ function upgrade() {
       zombies = [];
       bullets = [];
       gameOver();
+      
     }
 
     // столкновение пули и зомби
@@ -154,20 +154,13 @@ function upgrade() {
           animx: explSpeed,
           animy: explSpeed,
         });
-        //--------------------------------------------------------
-
-        // помечаем зомби на удаление
-        zombies[i].del = 1;
-        newscore++;
-        break;
-      }
-      // удаляем зомби
-      if (zombies[i].del == 1) {
+        
         bullet.splice(j, 1);
         zombies.splice(i, 1);
-      }
-    }  
-    
+        newscore++;
+        break;
+      } 
+    }
   }
 
   //---------------- С Т Р Е Л О К -----------
